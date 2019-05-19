@@ -14,6 +14,7 @@
     "cors": "^2.8.5",
     "express": "^4.16.4",
     "formidable": "^1.2.1",
+    "mongoose": "^5.5.8",
     "pdf-text-extract": "^1.5.0",
     "pdf-to-text": "0.0.7",
     "pdf2json": "^1.1.8"

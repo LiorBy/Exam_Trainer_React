@@ -7,11 +7,8 @@ const PDFParser = require("pdf2json");
 var option = { from: 0, to: 10 };
 
 
-
-
-
-
-
+const pdf2text = require('./models/parsePDF-model');
+const name = '';
 module.exports = function upload(req, res) {
     var form = new IncomingForm();
 
@@ -22,9 +19,9 @@ module.exports = function upload(req, res) {
         console.log(typeof file.path);
         var pdf_path = file.path;
         let fileName = file.name;
-        let tempFpath = 'C:\\Users\\USER\\Desktop\\hello world.pdf';
+        name = fileName;
+        //let tempFpath = 'C:\\Users\\USER\\Desktop\\hello world.pdf';
         const pathDesktop = 'C:\\Users\\USER\\Desktop\\';
-        //filePath += '.pdf';
         console.log(pdf_path);
 
         let pdfParser = new PDFParser(this, 1);
@@ -33,12 +30,24 @@ module.exports = function upload(req, res) {
 
         pdfParser.on("pdfParser_dataError", errData => console.error(errData.parserError + ' line 31'));
         pdfParser.on("pdfParser_dataReady", pdfData => {
-            fs.writeFile(pathDesktop + 'hello world2.txt', pdfParser.getRawTextContent(), (err) => {
-                if (err) throw err;
-                console.log('The file has been saved!');
-            });
+            // fs.writeFile(pathDesktop + 'hello world2.txt', pdfParser.getRawTextContent(), (err) => {
+            //     if (err) throw err;
+            //     console.log('The file has been saved!');
+            // });
             //res.send(pdfParser.getRawTextContent());
             //res.send(JSON.stringify(pdfData));
+            const txt = pdfParser.getRawTextContent();
+            new pdf2text({
+                    name: fileName,
+                    text: txt   
+            }).save().then((newObject) => {
+                console.log('newObject: ' + newObject);
+            }
+            ).catch((err) => {
+                console.log(err);
+            });
+
+
             console.log(pdfParser.getRawTextContent());
         });
 
@@ -46,6 +55,9 @@ module.exports = function upload(req, res) {
     });
 
     form.on('end', () => {
+        const MyModel = new pdf2text();
+        MyModel.find({name : })
+
         res.json();
         //res.send(pdfParser.getRawTextContent());
     })
