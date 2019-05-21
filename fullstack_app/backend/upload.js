@@ -41,7 +41,7 @@ module.exports = function upload(req, res) {
                     name: fileName,
                     text: txt   
             }).save().then((newObject) => {
-                console.log('newObject: ' + newObject);
+                console.log('newObjectt: ' + newObject);
             }
             ).catch((err) => {
                 console.log(err);
