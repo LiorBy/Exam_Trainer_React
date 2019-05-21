@@ -8,7 +8,8 @@ var option = { from: 0, to: 10 };
 
 
 const pdf2text = require('./models/parsePDF-model');
-const name = '';
+
+
 module.exports = function upload(req, res) {
     var form = new IncomingForm();
 
@@ -19,7 +20,6 @@ module.exports = function upload(req, res) {
         console.log(typeof file.path);
         var pdf_path = file.path;
         let fileName = file.name;
-        name = fileName;
         //let tempFpath = 'C:\\Users\\USER\\Desktop\\hello world.pdf';
         const pathDesktop = 'C:\\Users\\USER\\Desktop\\';
         console.log(pdf_path);
@@ -56,9 +56,9 @@ module.exports = function upload(req, res) {
 
     form.on('end', () => {
         const MyModel = new pdf2text();
-        MyModel.find({name : })
+        MyModel.find({name : 'Gal Mazor CV.pdf'})
 
-        res.json();
+        res.json(MyModel);
         //res.send(pdfParser.getRawTextContent());
     })
 
