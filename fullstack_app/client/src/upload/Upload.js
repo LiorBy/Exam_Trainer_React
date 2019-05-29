@@ -36,7 +36,7 @@ class Upload extends Component {
     });
     try {
       await Promise.all(promises);
-  
+
       this.setState({ successfullUploaded: true, uploading: false });
     } catch (e) {
       // Not Production ready! Do some error handling here instead...
@@ -47,39 +47,41 @@ class Upload extends Component {
   sendRequest(file) {
     return new Promise((resolve, reject) => {
       const req = new XMLHttpRequest();
-  
+
       req.upload.addEventListener("progress", event => {
         if (event.lengthComputable) {
-         const copy = { ...this.state.uploadProgress };
-         copy[file.name] = {
-          state: "pending",
-          percentage: (event.loaded / event.total) * 100
-         };
-         this.setState({ uploadProgress: copy });
+          const copy = { ...this.state.uploadProgress };
+          copy[file.name] = {
+            state: "pending",
+            percentage: (event.loaded / event.total) * 100
+          };
+          this.setState({ uploadProgress: copy });
         }
-       });
-        
-       req.upload.addEventListener("load", event => {
+      });
+
+      req.upload.addEventListener("load", event => {
         const copy = { ...this.state.uploadProgress };
         copy[file.name] = { state: "done", percentage: 100 };
         this.setState({ uploadProgress: copy });
         resolve(req.response);
-       });
-        
-       req.upload.addEventListener("error", event => {
+      });
+
+      req.upload.addEventListener("error", event => {
         const copy = { ...this.state.uploadProgress };
         copy[file.name] = { state: "error", percentage: 0 };
         this.setState({ uploadProgress: copy });
         reject(req.response);
-       });
+      });
 
       const formData = new FormData();
       formData.append("file", file, file.name);
-  
+
       req.open("POST", "http://localhost:8000/upload");
       req.send(formData);
     });
   }
+
+  
 
 
 
