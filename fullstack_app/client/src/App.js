@@ -1,48 +1,29 @@
-import React, { Component } from 'react'
-import './App.css'
-import Upload from './upload/Upload'
-import Download from './download/Download';
-import TextFieldComp from './textField/TextFieldComp';
+//import './App.css'
+import React, { Component } from 'react';
+import { Link, Route, Switch, BrowserRouter as Router } from 'react-router-dom';
+import Login from './login/Login';
+import withAuth from './withAuth';
+import Home from './Home';
+import Secret from './Secret';
 
 class App extends Component {
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      textToTextField:''
-    }
-
-  }
-
-insertTextToTextField(nameAndText){
-  console.log(nameAndText);
-  this.setState({
-    textToTextField:nameAndText
-  })
-}
-
-
   render() {
     return (
-      <div className="App">
-        <div className="app-header">
-          <span>Exam Trainer!!!</span>
+      <Router>
+        <div>
+          <ul>
+            <li><Link to="/">Home</Link></li>
+            <li><Link to="/secret">Secret</Link></li>
+            <li><Link to="/login">Login</Link></li>
+          </ul>
+          <Switch>
+            <Route path="/" exact component={Home} />
+            <Route path="/secret" component={withAuth(Secret)} />
+            <Route path="/login" component={Login} />
+          </Switch>
         </div>
-        <div className="body">
-          <div>
-            <TextFieldComp fileText={this.state.textToTextField}/>
-          </div>
-          <div className="Card">
-            <Upload />
-          </div>
-          <div className="DownloadCard">
-            <Download callbackWithText={this.insertTextToTextField.bind(this)} />
-          </div>
-        </div>
-        <div className="footer">
-        </div>
-      </div>
-    )
+      </Router>
+    );
   }
 }
 
