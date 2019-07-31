@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import "./Home.css";
-//import Upload from "../Upload/Upload";
-//import Download from "../Download/Download";
-//import TextFieldComp from "../TextField/TextFieldComp";
+import AdminLobby from "../Admin/AdminLobby";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 class Home extends Component {
   constructor(props) {
@@ -13,42 +12,17 @@ class Home extends Component {
     };
   }
 
-  componentDidMount() {
-    //GET message from server using fetch api
-    fetch("/api/home")
-      .then(res => res.text())
-      .then(res => this.setState({ message: res }));
-  }
-
-  insertTextToTextField(nameAndText) {
-    console.log(nameAndText);
-    this.setState({
-      textToTextField: nameAndText
-    });
-  }
-
   render() {
     return (
-      <div className="Home">
-        {/*
-        <div className="home-header">
-          <span>Exam Trainer!!!</span>
-        </div>
-        <div className="body">
-          <div>
-            <TextFieldComp fileText={this.state.textToTextField} />
-          </div>
-          <div className="Card">
-            <Upload />
-          </div>
-          <div className="DownloadCard">
-            <Download
-              callbackWithText={this.insertTextToTextField.bind(this)}
-            />
-          </div>
-        </div>
-        <div className="footer"></div>
-        */}
+      <div>
+        <Router>
+          <ul>
+            <li>
+              <Link to="/admin">Admin</Link>
+            </li>
+          </ul>
+          <Route exact path="/admin" component={AdminLobby} />
+        </Router>
       </div>
     );
   }
