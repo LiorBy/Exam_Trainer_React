@@ -3,6 +3,8 @@ const express = require("express");
 const mongoose = require("mongoose");
 const authenticate = require("./routes/authenticate");
 const register = require("./routes/register");
+const upload = require("./routes/upload");
+const download = require("./routes/download");
 
 const server = express();
 
@@ -20,6 +22,8 @@ mongoose.connect(url, { useNewUrlParser: true }, err => {
 server.use(express.static(path.join(__dirname, "/public")));
 server.use("/authenticate", authenticate);
 server.use("/register", register);
+server.post("/upload", upload);
+server.use("/download", download);
 
 server.listen(8000, () => {
   console.log("Server started!");
