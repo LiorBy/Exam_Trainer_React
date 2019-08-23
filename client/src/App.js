@@ -52,7 +52,7 @@ class App extends React.Component {
           path="/"
           render={() => {
             return <Home />;
-            const info = this.getUserInfo();
+            const info = null; //this.getUserInfo();
             if (info === null) {
               return <Redirect to="/login" />;
             } else {
