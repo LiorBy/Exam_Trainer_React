@@ -25,7 +25,7 @@ module.exports = function upload(req, res) {
       })
         .save()
         .then(newObject => {
-          console.log("newObjectt: " + newObject);
+          console.log("newObject");
         })
         .catch(err => {
           console.log(err);
