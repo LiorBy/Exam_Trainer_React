@@ -2,6 +2,12 @@ const express = require("express");
 const Question = require("../models/question-model");
 const router = express.Router();
 
+//TODO:
+//1. Change routings - by courses and than all the rest
+//2. Implement handling generic query
+//3. functions to controller and good routing here
+//4. add subject field
+
 //get all questions
 router.get("/", (req, res) => {
   Question.find({}, function(err, questions) {
