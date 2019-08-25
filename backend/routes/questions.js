@@ -18,7 +18,7 @@ router.get("/", (req, res) => {
 });
 
 //get question by id
-router.get("/:id", (req, res) => {
+router.get("/id/:id", (req, res) => {
   Question.findById(req.params.id, function(err, question) {
     if (err) {
       res.status(500).send("Error");
@@ -32,8 +32,53 @@ router.get("/:id", (req, res) => {
   });
 });
 
+//get all lecturers
+router.get("/lecturers", (req, res) => {
+  Question.find({}, "lecturer", function(err, lecturers) {
+    if (err) {
+      res.status(500).send(err);
+    } else if (!lecturers) {
+      res.status(401).send("lecturers not found");
+    } else {
+      res.status(200).json({
+        lecturers: lecturers
+      });
+    }
+  });
+});
+
+//get all years
+router.get("/year", (req, res) => {
+  Question.find({}, "year", function(err, years) {
+    if (err) {
+      res.status(500).send(err);
+    } else if (!years) {
+      res.status(401).send("years not found");
+    } else {
+      res.status(200).json({
+        years: years
+      });
+    }
+  });
+});
+
+//get all lecturers
+router.get("/lecturers", (req, res) => {
+  Question.find({}, "lecturer", function(err, lecturers) {
+    if (err) {
+      res.status(500).send(err);
+    } else if (!lecturers) {
+      res.status(401).send("lecturers not found");
+    } else {
+      res.status(200).json({
+        lecturers: lecturers
+      });
+    }
+  });
+});
+
 //edit question by id
-router.put("/:id", (req, res) => {
+router.put("/id/:id", (req, res) => {
   const newQuestion = {};
   newQuestion.text = req.body.text;
   newQuestion.course = req.body.course;
