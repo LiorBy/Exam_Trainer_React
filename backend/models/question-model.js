@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const QuestionSchema = new mongoose.Schema({
-  text: String,
+  content: String,
   course: String,
   year: Number,
   semester: String,
