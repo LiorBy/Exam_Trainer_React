@@ -6,6 +6,8 @@ const register = require("./routes/register");
 const upload = require("./routes/upload");
 const download = require("./routes/download");
 const exams = require("./routes/exams");
+const questions = require("./routes/questions");
+const generate = require("./routes/generate");
 
 const server = express();
 
@@ -26,6 +28,8 @@ server.use("/register", register);
 server.post("/upload", upload);
 server.use("/download", download);
 server.use("/exams", exams);
+server.use("/questions", questions);
+server.use("/generate", generate);
 
 server.listen(8000, () => {
   console.log("Server started!");
