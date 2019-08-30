@@ -30,7 +30,7 @@ exports.getQuestionById = (req, res) => {
 
 exports.editQuestionById = (req, res) => {
   const newQuestion = {};
-  newQuestion.text = req.body.text;
+  newQuestion.content = req.body.content;
   newQuestion.course = req.body.course;
   newQuestion.year = req.body.year;
   newQuestion.semester = req.body.semester;
@@ -65,9 +65,9 @@ exports.deleteQuestionById = (req, res) => {
 };
 
 exports.insertQuestion = (req, res) => {
-  const { text, course, year, semester, lecturer, subject } = req.body;
+  const { content, course, year, semester, lecturer, subject } = req.body;
   const question = new Question({
-    text,
+    content,
     course,
     year,
     semester,

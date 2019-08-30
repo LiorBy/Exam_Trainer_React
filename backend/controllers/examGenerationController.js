@@ -8,6 +8,7 @@ exports.generateExam = (req, res) => {
       res.status(500).send(err);
     } else {
       //TODO: Implement generate exam methods
+      // WE NEED TO RETURN SOME RANDOM QUESTIONS
       res.status(200).send(questions);
     }
   });
