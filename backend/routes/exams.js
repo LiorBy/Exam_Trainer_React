@@ -1,6 +1,5 @@
 const express = require("express");
 const examsController = require("./../controllers/examsController");
-const Exam = require("../models/exam-model");
 const router = express.Router();
 
 router
@@ -9,9 +8,11 @@ router
   .post(examsController.insertExam);
 
 router
-  .route("/:id")
+  .route("/exam/:id")
   .get(examsController.getExamById)
   .put(examsController.editExamById)
   .delete(examsController.deleteExamById);
+
+router.route("/course/:course").get(examsController.getExamsByCourse);
 
 module.exports = router;

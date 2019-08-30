@@ -1,11 +1,11 @@
 const Exam = require("../models/exam-model");
 
 exports.getAllExams = (req, res) => {
-  Exam.find({}, function(err, exams) {
+  Exam.find({}, (err, exams) => {
     if (err) {
-      res.status(500).send("ERROR");
+      res.status(500).send(err);
     } else if (!exams) {
-      res.status(401).send("NO EXAMS FOUND");
+      res.status(401).send("No exams found");
     } else {
       res.status(200).json({
         exams: exams
@@ -15,9 +15,9 @@ exports.getAllExams = (req, res) => {
 };
 
 exports.getExamById = (req, res) => {
-  Exam.findById(req.params.id, function(err, exam) {
+  Exam.findById(req.params.id, (err, exam) => {
     if (err) {
-      res.status(500).send("Error");
+      res.status(500).send(err);
     } else if (!exam) {
       res.status(401).send("Exam not found");
     } else {
@@ -29,7 +29,6 @@ exports.getExamById = (req, res) => {
 };
 
 exports.editExamById = (req, res) => {
-  const { name, course, year, semester, lecturer, raw_text } = req.body;
   const newExam = {};
   newExam.name = req.body.name;
   newExam.course = req.body.course;
@@ -37,7 +36,7 @@ exports.editExamById = (req, res) => {
   newExam.semester = req.body.semester;
   newExam.lecturer = req.body.lecturer;
   newExam.raw_text = req.body.raw_text;
-  Exam.findByIdAndUpdate({ _id: req.params.id }, newExam, function(err, exam) {
+  Exam.findByIdAndUpdate({ _id: req.params.id }, newExam, (err, exam) => {
     if (err) {
       res.status(500).send(err);
     } else if (!exam) {
@@ -51,7 +50,7 @@ exports.editExamById = (req, res) => {
 };
 
 exports.deleteExamById = (req, res) => {
-  Exam.findByIdAndDelete({ _id: req.params.id }, function(err) {
+  Exam.findByIdAndDelete({ _id: req.params.id }, err => {
     if (err) {
       res.status(500).send(err);
     } else {
@@ -68,6 +67,18 @@ exports.insertExam = (req, res) => {
       res.status(500).send(err);
     } else {
       res.status(200).send();
+    }
+  });
+};
+
+exports.getExamsByCourse = (req, res) => {
+  var query = { ...req.query };
+  query.course = req.params.course;
+  Exam.find(query, (err, exams) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.status(200).send(exams);
     }
   });
 };

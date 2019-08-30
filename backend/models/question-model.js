@@ -5,7 +5,8 @@ const QuestionSchema = new mongoose.Schema({
   course: String,
   year: Number,
   semester: String,
-  lecturer: String
+  lecturer: String,
+  subject: String
 });
 
 const Question = mongoose.model("question", QuestionSchema);
