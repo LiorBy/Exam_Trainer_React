@@ -30,12 +30,14 @@ exports.getQuestionById = (req, res) => {
 
 exports.editQuestionById = (req, res) => {
   const newQuestion = {};
+  newQuestion.name = req.body.name;
   newQuestion.content = req.body.content;
   newQuestion.course = req.body.course;
   newQuestion.year = req.body.year;
   newQuestion.semester = req.body.semester;
   newQuestion.lecturer = req.body.lecturer;
   newQuestion.subject = req.body.subject;
+  newQuestion.solution = req.body.solution;
 
   Question.findByIdAndUpdate(
     { _id: req.params.id },
@@ -65,14 +67,25 @@ exports.deleteQuestionById = (req, res) => {
 };
 
 exports.insertQuestion = (req, res) => {
-  const { content, course, year, semester, lecturer, subject } = req.body;
-  const question = new Question({
+  const {
+    name,
     content,
     course,
     year,
     semester,
     lecturer,
-    subject
+    subject,
+    solution
+  } = req.body;
+  const question = new Question({
+    name,
+    content,
+    course,
+    year,
+    semester,
+    lecturer,
+    subject,
+    solution
   });
   question.save(err => {
     if (err) {
