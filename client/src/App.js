@@ -2,6 +2,8 @@ import "./App.css";
 import React from "react";
 import Login from "./components/Login/Login";
 import Home from "./components/Home/Home";
+import Menu from "./components/Menu/Menu";
+import Subject from "./components/Subject-Page/Subject";
 import Register from "./components/Register/Register";
 import {
   BrowserRouter as Router,
@@ -44,6 +46,7 @@ class App extends React.Component {
               <Link to="/register">Register</Link>
             </li>
           </ul>
+          <div className="menu-bar-text">Exam-Trainer</div>
         </div>
         {<Route exact path="/login" component={Login} />}
         {<Route exact path="/register" component={Register} />}
@@ -51,7 +54,7 @@ class App extends React.Component {
           exact
           path="/"
           render={() => {
-            return <Home />;
+            return <Subject />;
             const info = null; //this.getUserInfo();
             if (info === null) {
               return <Redirect to="/login" />;

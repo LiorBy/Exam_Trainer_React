@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./Home.css";
 import AdminLobby from "../Admin/AdminLobby";
+import Menu from "../Menu/Menu";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 class Home extends Component {
@@ -22,6 +23,7 @@ class Home extends Component {
             </li>
           </ul>
           <Route exact path="/admin" component={AdminLobby} />
+          {/*<Route exact path="/admin" component={Menu} />*/}
         </Router>
       </div>
     );
