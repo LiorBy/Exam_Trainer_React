@@ -153,7 +153,7 @@ export default function Dashboard(props) {
           <Grid container spacing={3}>
             <Grid item>
               <Paper className={classes.paper}>
-                <Questions />
+                <Questions {...props} />
               </Paper>
             </Grid>
           </Grid>
