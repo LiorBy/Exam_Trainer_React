@@ -12,10 +12,8 @@ import LocalOfferTwoToneIcon from "@material-ui/icons/LocalOfferTwoTone";
 import Checkbox from "@material-ui/core/Checkbox";
 import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
-
 import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
-
 import Divider from "@material-ui/core/Divider";
 import { withStyles } from "@material-ui/core/styles";
 
@@ -34,29 +32,43 @@ const styles = theme => ({
 class Sidebar extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      course_name: this.props.match.params.course_name,
+      questions: []
+    };
 
-    this.getExams = this.getExams.bind(this);
     this.getYears = this.getYears.bind(this);
     this.getLecturers = this.getLecturers.bind(this);
   }
 
-  componentWillMount() {
-    this.exams = this.getExams();
-    this.years = this.getYears();
-    this.lecturers = this.getLecturers();
+  componentDidMount() {
+    fetch(`/questions/course/${this.state.course_name}`)
+      .then(response => {
+        return response.json();
+      })
+      .then(json => {
+        console.log(json);
+        this.setState({
+          questions: json
+        });
+      });
   }
+
   handleClick = e => {
     this.setState({ [e]: !this.state[e] });
   };
 
   render() {
     const { classes } = this.props;
+    const { questions } = this.state;
+    const years = questions.length ? this.getYears() : [];
+    const lecturers = questions.length ? this.getLecturers() : [];
+
     return (
       <div>
         <List
           className={classes.root}
-          subheader={<ListSubheader>Subject-Name</ListSubheader>}
+          subheader={<ListSubheader>{this.state.course_name}</ListSubheader>}
         >
           <ListItem button onClick={this.handleClick.bind(this, "year")}>
             <ListItemIcon>
@@ -68,7 +80,7 @@ class Sidebar extends React.Component {
           <Collapse in={this.state.year} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
               <FormGroup column>
-                {this.years.map(item => {
+                {years.map(item => {
                   return (
                     <FormControlLabel
                       control={<Checkbox />}
@@ -91,7 +103,7 @@ class Sidebar extends React.Component {
           <Collapse in={this.state.lecturer} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
               <FormGroup column>
-                {this.lecturers.map(item => {
+                {lecturers.map(item => {
                   return (
                     <FormControlLabel
                       control={<Checkbox />}
@@ -116,43 +128,10 @@ class Sidebar extends React.Component {
     );
   }
 
-  getExams() {
-    const json = {
-      list: [
-        {
-          id: 0,
-          name: "Exam0",
-          year: 2009,
-          semester: "B",
-          lecturer: "Romina",
-          raw_text: "bla bla"
-        },
-        {
-          id: 1,
-          name: "Exam1",
-          year: 2006,
-          semester: "B",
-          lecturer: "Iris",
-          raw_text: "bla1 b11la1"
-        },
-        {
-          id: 2,
-          name: "Exam2",
-          year: 2006,
-          semester: "B",
-          lecturer: "Romina",
-          raw_text: "bla1 b11111la1"
-        }
-      ]
-    };
-
-    return json;
-  }
-
   getYears() {
     const seen = new Set();
     let yearsList = [];
-    for (const exam of this.exams.list) {
+    for (const exam of this.state.questions) {
       yearsList.push({ id: exam.id, year: exam.year });
     }
     yearsList = yearsList.filter(el => {
@@ -171,7 +150,7 @@ class Sidebar extends React.Component {
   getLecturers() {
     const seen = new Set();
     let lecturersList = [];
-    for (const exam of this.exams.list) {
+    for (const exam of this.state.questions) {
       lecturersList.push({ id: exam.id, lecturer: exam.lecturer });
     }
     lecturersList = lecturersList.filter(el => {
