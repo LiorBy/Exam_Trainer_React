@@ -7,7 +7,11 @@ const download = require('./download');
 const withAuth = require('./middleware');
 const authenticate = require('./authenticate');
 const userRegister = require('./userRegister');
+const User = require('./models/user-model');
+const path = require('path');
 const mongoose = require('mongoose');
+
+const jwt = require('jsonwebtoken');
 
 const server = express();
 
@@ -15,8 +19,10 @@ const secret = 'mysecretsshhh';
 
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({
-  extended: true
+  extended: false
 }));
+server.use(cookieParser());
+
 
 const url = "mongodb+srv://Lior:1234@sadna-cromm.mongodb.net/test?retryWrites=true";
 
@@ -32,17 +38,25 @@ var corsOptions = {
 }
 
 
-server.use(cookieParser());
+
 
 server.use(express.static(__dirname + "/public"));
+
+
+server.get('/', function (req, res) {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
 
 server.use(cors(corsOptions));
 
 //Routing
 server.post('/upload', upload);
 server.use('/download', download);
-server.use('./userRegister', userRegister);
-server.use('./authenticate',authenticate);
+server.use('/api/userRegister', userRegister);
+server.use('/authenticate', authenticate);
+
+////
 
 
 server.get('/secret', withAuth, function(req, res) {
@@ -52,6 +66,7 @@ server.get('/secret', withAuth, function(req, res) {
 server.get('/checkToken', withAuth, function(req, res) {
   res.sendStatus(200);
 });
+
 
 server.listen(8000, () => {
   console.log('Server started!')

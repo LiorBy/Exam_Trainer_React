@@ -1,10 +1,10 @@
 const express = require('express');
-const router = express.Router();
+const userRegister = express.Router();
 const User = require('./models/user-model');
 
 
 
-router.post('/', (req, res) => {
+userRegister.post('/', (req, res) => {
     const { email, password } = req.body;
     User = new User({ email, password });
     User.save(function(err) {
@@ -19,4 +19,4 @@ router.post('/', (req, res) => {
   });
 
 
-  module.exports = router;
+  module.exports = userRegister;

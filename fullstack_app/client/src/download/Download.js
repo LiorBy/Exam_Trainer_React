@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './Download.css';
 import axios from 'axios';
-import ListGroup from 'react-bootstrap/ListGroup'
+//import ListGroup from 'react-bootstrap/ListGroup'
 
 class Download extends Component {
     constructor(props) {
@@ -21,7 +21,7 @@ class Download extends Component {
 
 
     sendRequestToGetFilesNames() {
-        axios.get("http://localhost:8000/download?getOnlyNames=1")
+        axios.get("/download?getOnlyNames=1")
             .then(res => {
                 const allNamesFromDB = res.data.names;
                 let namesArray = allNamesFromDB.map(item => { return item });
@@ -34,7 +34,7 @@ class Download extends Component {
     }
 
     sendRequestToGetFileText(fileID) {
-        axios.get(`http://localhost:8000/download?id=${fileID}`)
+        axios.get(`/download?id=${fileID}`)
             .then(res => {
                 let onlyText = res.data.text.text;
                 let fileName = res.data.text.name;

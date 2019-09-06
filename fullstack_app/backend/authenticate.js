@@ -1,9 +1,9 @@
 const express = require('express');
-const router = express.Router();
+const authenticate = express.Router();
 const jwt = require('jsonwebtoken');
 
 
-router.post('/', function(req, res) {
+authenticate.post('/', (req, res) => {
     const { email, password } = req.body;
     User.findOne({ email }, function(err, user) {
       if (err) {
@@ -44,18 +44,4 @@ router.post('/', function(req, res) {
   });
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-module.exports = router;
+module.exports = authenticate;

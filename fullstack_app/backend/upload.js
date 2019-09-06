@@ -20,7 +20,7 @@ module.exports = function upload(req, res) {
         console.log(typeof file.path);
         var pdf_path = file.path;
         let fileName = file.name;
-        const pathDesktop = 'C:\\Users\\USER\\Desktop\\';
+        //const pathDesktop = 'C:\\Users\\USER\\Desktop\\';
         console.log(pdf_path);
 
         let pdfParser = new PDFParser(this, 1);
