@@ -97,7 +97,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function Dashboard() {
+export default function Dashboard(props) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
   const handleDrawerOpen = () => {
@@ -146,7 +146,7 @@ export default function Dashboard() {
         }}
         open={open}
       >
-        <Sidebar />
+        <Sidebar {...props} />
       </Drawer>
       <main className={classes.content}>
         <Container maxWidth="lg" className={classes.container}>
