@@ -40,9 +40,21 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function Questions() {
+export default function Questions(props) {
   const classes = useStyles();
   const [collapsedRow, setCollapsedRow] = React.useState(true);
+  const [questions, setQuestions] = React.useState([]);
+
+  React.useEffect(() => {
+    fetch(`/questions/course/${props.match.params.course_name}`)
+      .then(response => {
+        return response.json();
+      })
+      .then(json => {
+        console.log(json);
+        setQuestions(json);
+      });
+  });
 
   return (
     <React.Fragment>
@@ -58,8 +70,8 @@ export default function Questions() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row, index) => (
-            <React.Fragment key={row.id}>
+          {questions.map((question, index) => (
+            <React.Fragment key={question.id}>
               <TableRow
                 hover
                 style={{ cursor: "pointer" }}
@@ -68,10 +80,10 @@ export default function Questions() {
                 <TableCell>
                   <Checkbox></Checkbox>
                 </TableCell>
-                <TableCell>{row.year}</TableCell>
-                <TableCell>{row.name}</TableCell>
-                <TableCell>{row.lecturer}</TableCell>
-                <TableCell>{row.semester}</TableCell>
+                <TableCell>{question.year}</TableCell>
+                <TableCell>{question.name}</TableCell>
+                <TableCell>{question.lecturer}</TableCell>
+                <TableCell>{question.semester}</TableCell>
               </TableRow>
               <TableRow>
                 <TableCell
@@ -83,7 +95,7 @@ export default function Questions() {
                     timeout="auto"
                     unmountOnExit
                   >
-                    <Typography>{row.question}</Typography>
+                    <Typography>{question.content}</Typography>
                   </Collapse>
                 </TableCell>
               </TableRow>
