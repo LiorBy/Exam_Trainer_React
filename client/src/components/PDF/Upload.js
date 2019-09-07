@@ -37,6 +37,7 @@ class Upload extends Component {
       await Promise.all(promises);
 
       this.setState({ successfullUploaded: true, uploading: false });
+      this.props.isUploaded(this.state.successfullUploaded);
     } catch (e) {
       // Not Production ready! Do some error handling here instead...
       this.setState({ successfullUploaded: true, uploading: false });
@@ -124,6 +125,8 @@ class Upload extends Component {
   }
 
   render() {
+    //this.props.isUploaded(this.state.successfullUploaded);
+
     return (
       <div className="Upload">
         <span className="Title">Upload Files</span>

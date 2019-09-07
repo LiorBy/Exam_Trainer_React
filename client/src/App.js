@@ -45,6 +45,7 @@ class App extends React.Component {
         <Route exact path="/menu" component={Options} />
         <Route exact path="/courses/:course_name" component={Course} />
         <Route exact path="/new-exam" component={NewExam} />
+        <Route exact path="/new-questions" component={Options} />
         <Route path="/" component={UpperBar} />
         {/*<Redirect from="/" to="/menu" />*/}
         {/*<Route
