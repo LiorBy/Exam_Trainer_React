@@ -12,15 +12,9 @@ class Download extends Component {
       allFilesName: [],
       fileTextThatClicked: ""
     };
-    this.displyFilesList = this.displyFilesList.bind(this);
-    this.sendRequestToGetFileText = this.sendRequestToGetFileText.bind(this);
-    this.sendRequestToGetFilesNames = this.sendRequestToGetFilesNames.bind(
-      this
-    );
-    this.getAllTextClick = this.getAllTextClick.bind(this);
   }
 
-  sendRequestToGetFilesNames() {
+  componentDidMount() {
     axios
       .get("/download?getOnlyNames=1")
       .then(res => {
@@ -32,55 +26,21 @@ class Download extends Component {
         console.log(namesArray);
         this.setState({ allFilesName: namesArray });
       })
-      .catch(err => console.log(err));
-  }
-
-  sendRequestToGetFileText(fileID) {
-    axios
-      .get(`/download?id=${fileID}`)
-      .then(res => {
-        let onlyText = res.data.text.text;
-        let fileName = res.data.text.name;
-        let nameAndText = { name: fileName, text: onlyText };
-        console.log(onlyText);
-        this.setState({ fileTextThatClicked: onlyText });
-        this.props.callbackWithText(nameAndText);
-      })
-      .catch(err => console.log(err));
-  }
-
-  getAllTextClick(fileID) {
-    console.log("getAllTextClick() " + fileID);
-    this.sendRequestToGetFileText(fileID);
-  }
-
-  displyFilesList() {
-    console.log("displyFilesList()");
-    this.sendRequestToGetFilesNames();
+      .then(() => {
+        const lastItem = this.state.allFilesName.slice(-1)[0];
+        axios.get(`/download?id=${lastItem._id}`).then(res => {
+          let onlyText = res.data.text.text;
+          let fileName = res.data.text.name;
+          let nameAndText = { name: fileName, text: onlyText };
+          console.log(onlyText);
+          this.setState({ fileTextThatClicked: onlyText });
+          this.props.callbackWithText(nameAndText);
+        });
+      });
   }
 
   render() {
-    let allNames = this.state.allFilesName.map((item, i) => {
-      return (
-        <li
-          onClick={() => this.getAllTextClick(item._id)}
-          data-id={i}
-          key={item._id}
-        >
-          {item.name}
-        </li>
-      );
-    });
-    return (
-      <div>
-        <button onClick={this.displyFilesList}>Files From DB</button>
-        <div>
-          <div className="download-container">
-            <ul>{allNames}</ul>
-          </div>
-        </div>
-      </div>
-    );
+    return <div></div>;
   }
 }
 

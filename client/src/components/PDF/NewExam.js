@@ -10,14 +10,15 @@ class NewExam extends Component {
 
     this.state = {
       textToTextField: "",
-      isUploaded: false
+      isUploaded: false,
+      isRedirected: false
     };
   }
 
   insertTextToTextField(nameAndText) {
-    console.log(nameAndText);
+    this.props.uploadedFile(nameAndText);
     this.setState({
-      textToTextField: nameAndText
+      isRedirected: !this.state.isRedirected
     });
   }
 
@@ -28,21 +29,22 @@ class NewExam extends Component {
   }
 
   render() {
-    if (this.state.isUploaded === true) {
+    if (this.state.isRedirected === true) {
       return <Redirect to="/new-questions" />;
     } else {
       return (
         <div className="home-header">
           <div className="body">
-            <TextFieldComp fileText={this.state.textToTextField} />
             <div className="Card">
               <Upload isUploaded={this.updateUploadState.bind(this)} />
             </div>
             <div className="DownloadCard">
               <div className="download-container">
-                <Download
-                  callbackWithText={this.insertTextToTextField.bind(this)}
-                />
+                {this.state.isUploaded ? (
+                  <Download
+                    callbackWithText={this.insertTextToTextField.bind(this)}
+                  />
+                ) : null}
               </div>
             </div>
           </div>

@@ -125,11 +125,9 @@ class Upload extends Component {
   }
 
   render() {
-    //this.props.isUploaded(this.state.successfullUploaded);
-
     return (
       <div className="Upload">
-        <span className="Title">Upload Files</span>
+        <span className="Title">Upload an Exam (only PDF)</span>
         <div className="Content">
           <div>
             <Dropzone
