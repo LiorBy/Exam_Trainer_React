@@ -8,6 +8,7 @@ const download = require("./routes/download");
 const exams = require("./routes/exams");
 const questions = require("./routes/questions");
 const generate = require("./routes/generate");
+const courses = require("./routes/courses");
 
 const server = express();
 
@@ -30,6 +31,7 @@ server.use("/download", download);
 server.use("/exams", exams);
 server.use("/questions", questions);
 server.use("/generate", generate);
+server.use("/courses", courses);
 
 server.listen(8000, () => {
   console.log("Server started!");
