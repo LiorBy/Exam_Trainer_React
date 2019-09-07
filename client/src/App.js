@@ -3,10 +3,12 @@ import React from "react";
 import Login from "./components/Login/Login";
 //import Home from "./components/Home/Home";
 import Menu from "./components/Menu/Menu";
+import Options from "./components/Options-Page/Options";
 import Course from "./components/Course-Page/Course";
 import Register from "./components/Register/Register";
+import NewExam from "./components/PDF/NewExam";
+import UpperBar from "./components/UpperBar/UpperBar";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import "./components/Menu/Menu.css";
 
 class App extends React.Component {
   state = {
@@ -32,22 +34,18 @@ class App extends React.Component {
       <Router>
         <div className="menu-bar">
           <ul>
-            <li>
-              <Link to="/menu">Menu</Link>
-            </li>
-            <li>
-              <Link to="/login">Login</Link>
-            </li>
-            <li>
-              <Link to="/register">Register</Link>
-            </li>
+            <li></li>
+            <li></li>
+            <li></li>
           </ul>
-          <div className="menu-bar-text">Exam-Trainer</div>
         </div>
         <Route exact path="/login" component={Login} />
         <Route exact path="/register" component={Register} />
-        <Route exact path="/menu" component={Menu} />
-        <Route exact path="/course/:course_name" component={Course} />
+        <Route exact path="/courses" component={Menu} />
+        <Route exact path="/menu" component={Options} />
+        <Route exact path="/courses/:course_name" component={Course} />
+        <Route exact path="/new-exam" component={NewExam} />
+        <Route path="/" component={UpperBar} />
         {/*<Redirect from="/" to="/menu" />*/}
         {/*<Route
           exact

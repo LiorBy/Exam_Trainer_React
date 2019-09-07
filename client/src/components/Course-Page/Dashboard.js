@@ -20,7 +20,7 @@ function Copyright() {
     <Typography variant="body2" color="textSecondary" align="center">
       {"Copyright © "}
       <Link color="inherit" href="https://material-ui.com/">
-        Exam-Trainer
+        Exams-Trainer
       </Link>{" "}
       {new Date().getFullYear()}
       {"."}
@@ -103,15 +103,11 @@ export default function Dashboard(props) {
   const handleDrawerOpen = () => {
     setOpen(true);
   };
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
-  const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <AppBar
+      {/*<AppBar
         position="absolute"
         className={clsx(classes.appBar, open && classes.appBarShift)}
       >
@@ -138,7 +134,7 @@ export default function Dashboard(props) {
             Exam-Trainer
           </Typography>
         </Toolbar>
-      </AppBar>
+            </AppBar> */}
       <Drawer
         variant="permanent"
         classes={{

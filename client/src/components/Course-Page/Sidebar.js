@@ -39,6 +39,7 @@ class Sidebar extends React.Component {
 
     this.getYears = this.getYears.bind(this);
     this.getLecturers = this.getLecturers.bind(this);
+    this.getSemesters = this.getSemesters.bind(this);
   }
 
   componentDidMount() {
@@ -47,7 +48,6 @@ class Sidebar extends React.Component {
         return response.json();
       })
       .then(json => {
-        console.log(json);
         this.setState({
           questions: json
         });
@@ -63,6 +63,7 @@ class Sidebar extends React.Component {
     const { questions } = this.state;
     const years = questions.length ? this.getYears() : [];
     const lecturers = questions.length ? this.getLecturers() : [];
+    const semesters = questions.length ? this.getSemesters() : [];
 
     return (
       <div>
@@ -116,13 +117,28 @@ class Sidebar extends React.Component {
             </List>
           </Collapse>
           <Divider />
-          <ListItem button onClick={this.handleClick.bind(this, "tags")}>
+          <ListItem button onClick={this.handleClick.bind(this, "semester")}>
             <ListItemIcon>
               <LocalOfferTwoToneIcon />
             </ListItemIcon>
-            <ListItemText primary="Tags" />
-            {this.state.tags ? <ExpandLess /> : <ExpandMore />}
+            <ListItemText primary="Semester" />
+            {this.state.semester ? <ExpandLess /> : <ExpandMore />}
           </ListItem>
+          <Collapse in={this.state.semester} timeout="auto" unmountOnExit>
+            <List component="div" disablePadding>
+              <FormGroup column>
+                {semesters.map(item => {
+                  return (
+                    <FormControlLabel
+                      control={<Checkbox />}
+                      key={item.id}
+                      label={item.semester}
+                    />
+                  );
+                })}
+              </FormGroup>
+            </List>
+          </Collapse>
         </List>
       </div>
     );
@@ -164,6 +180,25 @@ class Sidebar extends React.Component {
     });
 
     return lecturersList;
+  }
+
+  getSemesters() {
+    const seen = new Set();
+    let semestersList = [];
+    for (const exam of this.state.questions) {
+      semestersList.push({ id: exam.id, semester: exam.semester });
+    }
+    semestersList = semestersList.filter(el => {
+      const duplicate = seen.has(el.semester);
+      seen.add(el.semester);
+      return !duplicate;
+    });
+
+    semestersList.sort((a, b) => {
+      return a.semester > b.semester ? 1 : b.semester > a.semester ? -1 : 0;
+    });
+
+    return semestersList;
   }
 }
 

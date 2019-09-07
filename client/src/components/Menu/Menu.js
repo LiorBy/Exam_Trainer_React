@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./Menu.css";
-import { BrowserRouter as Router, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 class Menu extends Component {
   constructor(props) {
@@ -12,22 +12,22 @@ class Menu extends Component {
   render() {
     return (
       <div className="menu">
-        <Link to="/course/Algorithms" className="yellow">
+        <Link to="/courses/Algorithms" className="yellow">
           Algorithms
         </Link>
-        <Link to="/course/Hedva" className="green">
+        <Link to="/courses/Hedva" className="green">
           Hedva
         </Link>
-        <Link to="/course/Data-Structure" className="pink">
+        <Link to="/courses/Data-Structure" className="pink">
           Data Structure
         </Link>
-        <Link to="/course/Architecture" className="purple">
+        <Link to="/courses/Architecture" className="purple">
           Architecture
         </Link>
-        <Link to="/course/Complexity" className="blue">
+        <Link to="/courses/Complexity" className="blue">
           Complexity
         </Link>
-        <Link to="/course/Linear-Algebra" className="orange">
+        <Link to="/courses/Linear-Algebra" className="orange">
           Linear Algebra
         </Link>
       </div>
