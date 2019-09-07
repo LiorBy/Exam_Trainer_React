@@ -1,7 +1,6 @@
 /* eslint-disable no-script-url */
 
 import React from "react";
-import Link from "@material-ui/core/Link";
 import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -10,23 +9,9 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
 import Title from "./Title";
 import { Collapse, Checkbox } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
-
-// Generate Question Data
-function createData(id, year, name, lecturer, semester, question) {
-  return { id, year, name, lecturer, semester, question };
-}
-
-const rows = [
-  createData(0, "2019", "Question1", "Romina Zigdon", "B", "bla bla bla"),
-  createData(1, "2017", "Question2", "Zef Segal", "A", "i'm a questions"),
-  createData(2, "2015", "Question4", "Zef Segal", "A", "hey wtf"),
-  createData(3, "2019", "Question10", "Iris Rosenblum", "B", "glennn"),
-  createData(4, "2013", "Question6", "Shlomit Arian", "A", "praggger")
-];
 
 const useStyles = makeStyles(theme => ({
   button: {
@@ -51,10 +36,9 @@ export default function Questions(props) {
         return response.json();
       })
       .then(json => {
-        console.log(json);
         setQuestions(json);
       });
-  });
+  }, []);
 
   return (
     <React.Fragment>
