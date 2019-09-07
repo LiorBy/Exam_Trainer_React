@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Upload from "./Upload";
 import Download from "./Download";
-import TextFieldComp from "./TextFieldComp";
 import { Redirect } from "react-router-dom";
 
 class NewExam extends Component {

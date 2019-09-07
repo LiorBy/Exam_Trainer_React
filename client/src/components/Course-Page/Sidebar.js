@@ -21,11 +21,9 @@ const styles = theme => ({
   root: {
     width: "100%",
     maxWidth: 360
-    //background: "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)"
   },
   nested: {
     paddingLeft: theme.spacing(4)
-    //background: "linear-gradient(45deg, #FE6B3B 30%, #FF8D53 90%)"
   }
 });
 
@@ -84,8 +82,8 @@ class Sidebar extends React.Component {
                 {years.map(item => {
                   return (
                     <FormControlLabel
+                      key={item._id}
                       control={<Checkbox />}
-                      key={item.id}
                       label={item.year}
                     />
                   );
@@ -107,8 +105,8 @@ class Sidebar extends React.Component {
                 {lecturers.map(item => {
                   return (
                     <FormControlLabel
+                      key={item._id}
                       control={<Checkbox />}
-                      key={item.id}
                       label={item.lecturer}
                     />
                   );
@@ -130,8 +128,8 @@ class Sidebar extends React.Component {
                 {semesters.map(item => {
                   return (
                     <FormControlLabel
+                      key={item._id}
                       control={<Checkbox />}
-                      key={item.id}
                       label={item.semester}
                     />
                   );

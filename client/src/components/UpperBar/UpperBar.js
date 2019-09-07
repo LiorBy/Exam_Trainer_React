@@ -87,11 +87,7 @@ const useStyles = makeStyles(theme => ({
 
 const UpperBar = () => {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(true);
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
-
+  const pathName = `/logo.jpg`;
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   function handleClick(event) {
@@ -105,7 +101,7 @@ const UpperBar = () => {
   return (
     <AppBar
       position="absolute"
-      className={clsx(classes.appBar, open && classes.appBarShift)}
+      className={clsx(classes.appBar, classes.appBarShift)}
     >
       <Toolbar className={classes.toolbar}>
         <IconButton
@@ -136,7 +132,7 @@ const UpperBar = () => {
             Logout
           </MenuItem>
         </Menu>
-        <img src="logo.jpg" className={classes.logo} />
+        <img src={pathName} alt="exams-trainer-logo" className={classes.logo} />
         <Typography
           component="h1"
           variant="h6"
