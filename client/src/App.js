@@ -9,13 +9,15 @@ import Register from "./components/Register/Register";
 import NewExam from "./components/PDF/NewExam";
 import UpperBar from "./components/UpperBar/UpperBar";
 import TagExam from "./components/PDF/TagExam";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import Exam from "./components/Exam/Exam";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 
 class App extends React.Component {
   state = {
     isAuthenticated: "",
     username: "",
-    textToTextField: ""
+    textToTextField: "",
+    questions: []
   };
 
   userLoggedIn = name => {
@@ -32,11 +34,13 @@ class App extends React.Component {
     });
   }
 
+  generatedExam(questions) {
+    this.setState({ questions: questions });
+  }
+
   getUserInfo() {
     return JSON.parse(localStorage.getItem("userInfo"));
   }
-
-  handleUploadedFile() {}
 
   render() {
     return (
@@ -54,7 +58,18 @@ class App extends React.Component {
         <Route exact path="/register" component={Register} />
         <Route exact path="/courses" component={Menu} />
         <Route exact path="/menu" component={Options} />
-        <Route exact path="/courses/:course_name" component={Course} />
+        <Route
+          exact
+          path="/courses/:course_name"
+          render={props => (
+            <Course {...props} questions={this.generatedExam.bind(this)} />
+          )}
+        />
+        <Route
+          exact
+          path="/exam"
+          render={props => <Exam {...props} questions={this.state.questions} />}
+        />
         <Route
           exact
           path="/new-exam"

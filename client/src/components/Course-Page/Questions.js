@@ -12,6 +12,7 @@ import Grid from "@material-ui/core/Grid";
 import Title from "./Title";
 import { Collapse, Checkbox } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles(theme => ({
   button: {
@@ -25,10 +26,13 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
+function handleRandomClick() {}
+
 export default function Questions(props) {
   const classes = useStyles();
   const [collapsedRow, setCollapsedRow] = React.useState(true);
   const [questions, setQuestions] = React.useState([]);
+  const [selection, setSelection] = React.useState([]);
 
   React.useEffect(() => {
     fetch(`/questions/course/${props.match.params.course_name}`)
@@ -36,9 +40,24 @@ export default function Questions(props) {
         return response.json();
       })
       .then(json => {
+        //questions = [...json];
         setQuestions(json);
       });
   }, []);
+
+  function handleGenerateClick() {
+    props.questions(selection);
+  }
+
+  function handleChange(e, question) {
+    if (e.target.checked) {
+      setSelection([...selection, question]);
+      console.log("selected: ", selection);
+    } else {
+      setSelection(selection.filter(item => item._id !== question._id));
+      console.log("filtered:", selection);
+    }
+  }
 
   return (
     <React.Fragment>
@@ -55,14 +74,18 @@ export default function Questions(props) {
         </TableHead>
         <TableBody>
           {questions.map((question, index) => (
-            <React.Fragment key={question.id}>
+            <React.Fragment key={question._id}>
               <TableRow
                 hover
                 style={{ cursor: "pointer" }}
                 onClick={() => setCollapsedRow(index)}
               >
                 <TableCell>
-                  <Checkbox></Checkbox>
+                  <Checkbox
+                    onChange={e => {
+                      handleChange(e, question);
+                    }}
+                  ></Checkbox>
                 </TableCell>
                 <TableCell>{question.year}</TableCell>
                 <TableCell>{question.name}</TableCell>
@@ -92,7 +115,11 @@ export default function Questions(props) {
           <Button
             variant="contained"
             color="primary"
+            disabled={selection.length ? false : true}
             className={classes.button}
+            onClick={handleGenerateClick.bind(this)}
+            to="/exam"
+            component={Link}
           >
             Generate Selection
           </Button>
@@ -102,6 +129,7 @@ export default function Questions(props) {
             variant="contained"
             color="primary"
             className={classes.button}
+            onClick={handleRandomClick.bind(this)}
           >
             Generate Randomly
           </Button>
