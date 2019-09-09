@@ -10,10 +10,8 @@ module.exports = function upload(req, res) {
     // Do something with the file
     // e.g. save it to the database
     // you can access it using file.path
-    console.log(typeof file.path);
     const pdfPath = file.path;
     const fileName = file.name;
-    console.log(pdfPath);
 
     const pdfParser = new PDFParser(this, 1);
 
@@ -24,14 +22,7 @@ module.exports = function upload(req, res) {
         text: txt
       })
         .save()
-        .then(newObject => {
-          console.log("newObject");
-        })
-        .catch(err => {
-          console.log(err);
-        });
-
-      console.log(pdfParser.getRawTextContent());
+        .then(newObject => {});
     });
 
     pdfParser.loadPDF(pdfPath);

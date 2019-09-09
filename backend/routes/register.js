@@ -8,10 +8,8 @@ router.post("/", (req, res) => {
   const user = new User({ email, password });
   user.save(err => {
     if (err) {
-      console.log(err);
       res.status(500).send("Error registering new user please try again.");
     } else {
-      console.log("the user: " + user.email + "save in the DB!");
       res.status(200).send("Welcome to the club!");
     }
   });

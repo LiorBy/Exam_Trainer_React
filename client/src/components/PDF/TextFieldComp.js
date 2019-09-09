@@ -20,7 +20,6 @@ class TextFieldComp extends Component {
   }
 
   render() {
-    console.log(this.props.fileText);
     return (
       <div className="pdf-text-container">
         <h1>{this.props.fileText.name}</h1>

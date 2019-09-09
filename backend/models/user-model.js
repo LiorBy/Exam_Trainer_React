@@ -31,7 +31,6 @@ UserSchema.methods.isCorrectPassword = function(password, callback) {
     if (err) {
       callback(err);
     } else {
-      console.log("same:", same);
       callback(err, same);
     }
   });

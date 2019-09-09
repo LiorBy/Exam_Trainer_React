@@ -26,13 +26,12 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-function handleRandomClick() {}
-
 export default function Questions(props) {
   const classes = useStyles();
   const [collapsedRow, setCollapsedRow] = React.useState(true);
   const [questions, setQuestions] = React.useState([]);
   const [selection, setSelection] = React.useState([]);
+  const [urlChanged, setUrlChanged] = React.useState(props.urlChanged);
 
   React.useEffect(() => {
     fetch(`/questions/course/${props.match.params.course_name}`)
@@ -40,10 +39,20 @@ export default function Questions(props) {
         return response.json();
       })
       .then(json => {
-        //questions = [...json];
         setQuestions(json);
       });
   }, []);
+
+  function handleRandomClick() {
+    const url = `/questions/course/${props.match.params.course_name}${props.location.search}`;
+    fetch(url)
+      .then(response => {
+        return response.json();
+      })
+      .then(json => {
+        props.questions(json);
+      });
+  }
 
   function handleGenerateClick() {
     props.questions(selection);
@@ -52,23 +61,34 @@ export default function Questions(props) {
   function handleChange(e, question) {
     if (e.target.checked) {
       setSelection([...selection, question]);
-      console.log("selected: ", selection);
     } else {
       setSelection(selection.filter(item => item._id !== question._id));
-      console.log("filtered:", selection);
     }
+  }
+
+  function fetchQuestions() {
+    fetch(window.location.href)
+      .then(response => {
+        return response.json();
+      })
+      .then(json => {
+        setQuestions(json);
+        setUrlChanged(false);
+      });
   }
 
   return (
     <React.Fragment>
+      {/*fetchQuestions()*/}
       <Title>Questions</Title>
       <Table size="small">
         <TableHead>
           <TableRow>
             <TableCell>▢</TableCell>
-            <TableCell>Date</TableCell>
             <TableCell>Name</TableCell>
             <TableCell>Lecturer</TableCell>
+            <TableCell>Subject</TableCell>
+            <TableCell>Year</TableCell>
             <TableCell>Semester</TableCell>
           </TableRow>
         </TableHead>
@@ -87,9 +107,10 @@ export default function Questions(props) {
                     }}
                   ></Checkbox>
                 </TableCell>
-                <TableCell>{question.year}</TableCell>
                 <TableCell>{question.name}</TableCell>
                 <TableCell>{question.lecturer}</TableCell>
+                <TableCell>{question.subject}</TableCell>
+                <TableCell>{question.year}</TableCell>
                 <TableCell>{question.semester}</TableCell>
               </TableRow>
               <TableRow>
@@ -110,7 +131,7 @@ export default function Questions(props) {
           ))}
         </TableBody>
       </Table>
-      <Grid container spacing={6}>
+      <Grid container className="buttons" spacing={6}>
         <Grid item>
           <Button
             variant="contained"
@@ -130,6 +151,8 @@ export default function Questions(props) {
             color="primary"
             className={classes.button}
             onClick={handleRandomClick.bind(this)}
+            to="/exam"
+            component={Link}
           >
             Generate Randomly
           </Button>
