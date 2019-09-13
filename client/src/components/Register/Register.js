@@ -27,6 +27,7 @@ export default class Register extends Component {
     })
       .then(res => {
         if (res.status === 200) {
+          console.log(res.text());
           this.props.history.push("/");
         } else {
           const error = new Error(res.error);

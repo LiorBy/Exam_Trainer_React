@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import axios from "axios";
 
 export default class Login extends Component {
   constructor(props) {
@@ -18,15 +19,18 @@ export default class Login extends Component {
 
   onSubmit = event => {
     event.preventDefault();
-    fetch("authenticate", {
-      method: "POST",
-      body: JSON.stringify(this.state),
+    axios({
+      method: "post",
+      url: "/authenticate",
+      data: JSON.stringify(this.state),
       headers: {
         "Content-Type": "application/json"
       }
     })
       .then(res => {
         if (res.status === 200) {
+          console.log(res);
+          localStorage.setItem('currentUser', [res.data.jwt, res.data.email]);
           this.props.history.push("/");
         } else {
           const error = new Error(res.error);
@@ -38,6 +42,7 @@ export default class Login extends Component {
         alert("Error logging in please try again");
       });
   };
+
 
   render() {
     return (

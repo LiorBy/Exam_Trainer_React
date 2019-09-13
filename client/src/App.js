@@ -6,10 +6,14 @@ import Menu from "./components/Menu/Menu";
 import Options from "./components/Options-Page/Options";
 import Course from "./components/Course-Page/Course";
 import Register from "./components/Register/Register";
+import Logout from "./components/Logout/Logout";
 import NewExam from "./components/PDF/NewExam";
 import UpperBar from "./components/UpperBar/UpperBar";
 import TagExam from "./components/PDF/TagExam";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+
+
+import withAuth from './withAuth';
 
 class App extends React.Component {
   state = {
@@ -36,7 +40,7 @@ class App extends React.Component {
     return JSON.parse(localStorage.getItem("userInfo"));
   }
 
-  handleUploadedFile() {}
+  handleUploadedFile() { }
 
   render() {
     return (
@@ -52,8 +56,9 @@ class App extends React.Component {
         </div>
         <Route exact path="/login" component={Login} />
         <Route exact path="/register" component={Register} />
+        <Route exact path="/logout" component={Logout} />
         <Route exact path="/courses" component={Menu} />
-        <Route exact path="/menu" component={Options} />
+        <Route exact path="/menu" component={withAuth(Options)} />
         <Route exact path="/courses/:course_name" component={Course} />
         <Route
           exact
