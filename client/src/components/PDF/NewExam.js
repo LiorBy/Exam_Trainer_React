@@ -17,7 +17,8 @@ class NewExam extends Component {
   insertTextToTextField(nameAndText) {
     this.props.uploadedFile(nameAndText);
     this.setState({
-      isRedirected: !this.state.isRedirected
+      isRedirected: !this.state.isRedirected,
+      isUploaded: false
     });
   }
 

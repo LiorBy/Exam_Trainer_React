@@ -16,7 +16,6 @@ router.post("/", function(req, res) {
       });
     } else {
       user.isCorrectPassword(password, function(err, same) {
-        console.log(same);
         if (!same) {
           res.status(401).json({
             error: "Incorrect email or password"

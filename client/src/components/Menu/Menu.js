@@ -12,22 +12,22 @@ class Menu extends Component {
   render() {
     return (
       <div className="menu">
-        <Link to="/courses/Algorithms" className="yellow">
+        <Link to="/questions/course/Algorithms" className="yellow">
           Algorithms
         </Link>
-        <Link to="/courses/Hedva" className="green">
+        <Link to="/questions/course/Hedva" className="green">
           Hedva
         </Link>
-        <Link to="/courses/Data-Structure" className="pink">
+        <Link to="/questions/course/Data-Structure" className="pink">
           Data Structure
         </Link>
-        <Link to="/courses/Architecture" className="purple">
+        <Link to="/questions/course/Architecture" className="purple">
           Architecture
         </Link>
-        <Link to="/courses/Complexity" className="blue">
+        <Link to="/questions/course/Complexity" className="blue">
           Complexity
         </Link>
-        <Link to="/courses/Linear-Algebra" className="orange">
+        <Link to="/questions/course/Linear-Algebra" className="orange">
           Linear Algebra
         </Link>
       </div>

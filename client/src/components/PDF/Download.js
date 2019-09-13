@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import "./Download.css";
-import axios from "axios";
 
 class Download extends Component {
   constructor(props) {
@@ -15,27 +14,24 @@ class Download extends Component {
   }
 
   componentDidMount() {
-    axios
-      .get("/download?getOnlyNames=1")
-      .then(res => {
-        const allNamesFromDB = res.data.names;
-        let namesArray = allNamesFromDB.map(item => {
-          return item;
-        });
-        console.log(allNamesFromDB);
-        console.log(namesArray);
-        this.setState({ allFilesName: namesArray });
+    fetch("download")
+      .then(response => {
+        return response.json();
       })
-      .then(() => {
-        const lastItem = this.state.allFilesName.slice(-1)[0];
-        axios.get(`/download?id=${lastItem._id}`).then(res => {
-          let onlyText = res.data.text.text;
-          let fileName = res.data.text.name;
-          let nameAndText = { name: fileName, text: onlyText };
-          console.log(onlyText);
-          this.setState({ fileTextThatClicked: onlyText });
-          this.props.callbackWithText(nameAndText);
-        });
+      .then(json => {
+        const allNamesFromDB = json.names;
+        const lastItemId = allNamesFromDB[allNamesFromDB.length - 1]._id;
+        fetch(`download/${lastItemId}`)
+          .then(response => {
+            return response.json();
+          })
+          .then(file => {
+            let onlyText = file.file.text;
+            let fileName = file.file.name;
+            let nameAndText = { name: fileName, text: onlyText };
+            this.setState({ fileTextThatClicked: onlyText });
+            this.props.callbackWithText(nameAndText);
+          });
       });
   }
 

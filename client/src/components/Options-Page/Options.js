@@ -9,7 +9,7 @@ const Options = () => {
       <Link to="/new-exam" className="yellow">
         Add an Exam
       </Link>
-      <Link to="/courses" className="blue">
+      <Link to="/questions/course" className="blue">
         Generate an Exam
       </Link>
     </div>

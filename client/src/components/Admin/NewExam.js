@@ -13,7 +13,6 @@ class NewExam extends Component {
   }
 
   insertTextToTextField(nameAndText) {
-    console.log(nameAndText);
     this.setState({
       textToTextField: nameAndText
     });
