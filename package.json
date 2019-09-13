@@ -6,8 +6,8 @@
   "scripts": {
     "client-install": "cd client && npm install",
     "backend-install": "cd backend && npm install",
-    "start": "cd backend && npm starts",
-    "heroku-postbuild": "cd client && npm start",
+    "start": "cd backend && npm start",
+    "heroku-postbuild": "cd client && npm run build",
     "server": "cd backend && nodemon server.js",
     "client": "npm start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\""
