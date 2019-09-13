@@ -33,6 +33,8 @@ server.use("/questions", questions);
 server.use("/generate", generate);
 server.use("/courses", courses);
 
-server.listen(8000, () => {
+
+let port_number = server.listen(process.env.PORT || 8000);
+server.listen(port_number, () => {
   console.log("Server started!");
 });
