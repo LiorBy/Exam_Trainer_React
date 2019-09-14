@@ -23,7 +23,7 @@ mongoose.connect(url, { useNewUrlParser: true }, err => {
 });
 
 //Routing
-server.use(express.static(path.join(__dirname, "../public")));
+server.use(express.static(path.join(__dirname, "/public")));
 server.use("/authenticate", authenticate);
 server.use("/register", register);
 server.post("/upload", upload);
