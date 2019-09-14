@@ -23,7 +23,7 @@ mongoose.connect(url, { useNewUrlParser: true }, err => {
 });
 
 //Routing
-server.use(express.static(path.join(__dirname, "/public")));
+server.use(express.static(path.join(__dirname, "../public")));
 server.use("/authenticate", authenticate);
 server.use("/register", register);
 server.post("/upload", upload);
@@ -33,16 +33,14 @@ server.use("/questions", questions);
 server.use("/generate", generate);
 server.use("/courses", courses);
 
-
 //production mode
 if (process.env.NODE_ENV === 'production') {
-  server.use(express.static(path.join(__dirname, 'client/build')));
+  server.use(express.static(path.join(__dirname, '../client/build')));
 
   server.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname = 'client/build/index.html'));
+    res.sendFile(path.join(__dirname = '../client/build/index.html'));
   })
 }
-
 
 let port_number = server.listen(process.env.PORT || 8000);
 server.listen(port_number, () => {
