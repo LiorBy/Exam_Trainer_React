@@ -1,8 +1,10 @@
-Exam Trainer by Itzik Yashar, Gal Mazor, Roy Prager and Lior Ben Yehuda
+Exam Trainer
 
-Technologies Used: Node.JS Express server, React, MongoDB
+by Itzik Yashar, Gal Mazor, Roy Prager and Lior Ben Yehuda
 
-Deploy link:https://rocky-eyrie-44027.herokuapp.com/
+-Technologies Used: Node.JS Express server, React, MongoDB
+
+-Deploy link:https://rocky-eyrie-44027.herokuapp.com/
 
 to run this code locally:
 1 'npm install'
